@@ -6,10 +6,32 @@ const mailjet = new Mailjet({
     apiSecret: process.env.MAILJET_SECRET_KEY
 });
 
+// 許可するオリジンのリスト
+const allowedOrigins = [
+    process.env.ORIGIN_DOMAIN_L,
+    process.env.ORIGIN_DOMAIN_WEB,
+];
+
 export async function POST(
     request: Request,
     response: Response
 ) {
+    const origin = request.headers.get("origin") || '';
+
+    // オリジンが許可されているかチェック
+    if (!allowedOrigins.includes(origin)) {
+        // 許可されていないオリジンからのリクエストの場合
+        return new Response(JSON.stringify({ message: "Forbidden" }), {
+            status: 403,
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+    }
+
+    // -------------------------------------------------------------------
+    // オリジン許可
+
     const { name, email, messages } = await request.json();
 
     try {
@@ -31,9 +53,20 @@ export async function POST(
             });
 
         //console.log(response.body);
-        return NextResponse.json({ messages: "successed" });
+        return new Response(JSON.stringify({ messages: "successed" }), {
+            status: 200,
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': origin, // 許可するオリジン
+            }
+        });
     } catch (err) {
         console.error(err);
-        return NextResponse.json(err);
+        return new Response(JSON.stringify(err), {
+            status: 500,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
     }
 }
