@@ -29,6 +29,11 @@ const Header = async () => {
                     {user
                         ?
                         <>
+                            <Link
+                                href={"/mail/form"}
+                                className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                                問い合わせ
+                            </Link>
                             <Link href={"/api/auth/signout"}>
                                 ログアウト
                             </Link>
