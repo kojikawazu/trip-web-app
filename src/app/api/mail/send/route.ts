@@ -1,4 +1,5 @@
 import { ALLOWED_ORIGINS } from "@/app/utils/constants";
+import { createResponse } from "@/app/utils/responseHelpers";
 import Mailjet from "node-mailjet";
 
 const mailjet = new Mailjet({
@@ -21,16 +22,12 @@ export async function POST(
     // オリジンが許可されているかチェック
     if (!ALLOWED_ORIGINS.includes(origin)) {
         // 許可されていないオリジンからのリクエストの場合
-        return new Response(JSON.stringify({ message: "Forbidden" }), {
-            status: 403,
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        });
+        return createResponse({ message: "Forbidden" }, 403);
     }
 
     // -------------------------------------------------------------------
     // オリジン許可
+    // -------------------------------------------------------------------
 
     const { name, email, messages } = await request.json();
 
@@ -62,11 +59,6 @@ export async function POST(
         });
     } catch (err) {
         console.error(err);
-        return new Response(JSON.stringify({ message: "Internal Server Error" }), {
-            status: 500,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+        return createResponse({ message: "Internal Server Error" }, 500);
     }
 }
