@@ -47,7 +47,7 @@ const RakutenBooksPage = ({ bookArr }: RakutenBooksPageProps) => {
                 {/* ページネーションコントロール */}
                 <div className="pagination flex justify-center my-8">
                     {Array.from({ length: Math.ceil(bookArr.Items.length / itemsPerPage) }, (_, index) => (
-                        <div className={index + 1 < currentLength ? "border-r-2" : ""}>
+                        <div key={index + 1} className={index + 1 < currentLength ? "border-r-2" : ""}>
                             <button
                                 className="mx-4 px-4"
                                 key={index + 1}

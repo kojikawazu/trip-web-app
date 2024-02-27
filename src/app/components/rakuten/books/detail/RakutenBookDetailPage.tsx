@@ -2,12 +2,15 @@
 
 import { RakutenBookType } from '@/app/types/types';
 import React from 'react';
+import Image from 'next/image';
 
 interface RakutenBookDetailPageProps {
     book: RakutenBookType;
 };
 
 const RakutenBookDetailPage = ({ book }: RakutenBookDetailPageProps) => {
+    const imgW = 200;
+    const imgH = 200;
     console.log(book);
 
     return (
@@ -16,11 +19,14 @@ const RakutenBookDetailPage = ({ book }: RakutenBookDetailPageProps) => {
                 <div className="grid gap-8 md:grid-cols-2 lg:gap-12">
                     <div>
                         <div className="h-64 overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-auto">
-                            <img
+                            <Image
                                 src={book.largeImageUrl}
                                 loading="lazy"
                                 alt="Photo by Martin Sanchez"
-                                className="h-full w-full object-cover object-center" />
+                                className="h-full w-full object-cover object-center"
+                                width={imgW}
+                                height={imgH}
+                                layout="responsive" />
                         </div>
                     </div>
 

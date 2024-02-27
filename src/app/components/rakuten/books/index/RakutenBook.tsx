@@ -1,6 +1,7 @@
 import React from 'react';
 import { RakutenBookType } from '@/app/types/types';
 import { truncateString } from '@/app/utils/stringUtils';
+import Image from 'next/image';
 
 interface RakutenBookProps {
     book: RakutenBookType;
@@ -14,12 +15,20 @@ interface RakutenBookProps {
 const RakutenBook = ({ book }: RakutenBookProps) => {
     const trimedTitle = truncateString(book.title, 8);
     const trimedItemCaption = truncateString(book.itemCaption, 30);
+    const imgW = 200;
+    const imgH = 200;
     //console.log(book);
 
     return (
         <div className="p-4 md:w-1/3 sm:mb-0 mb-6">
             <div className="rounded-lg h-64 overflow-hidden">
-                <img alt="content" className="object-cover object-center h-full w-full" src={book.largeImageUrl} />
+                <Image
+                    alt="content"
+                    className="object-cover object-center h-full w-full"
+                    src={book.largeImageUrl}
+                    width={imgW}
+                    height={imgH}
+                    layout="responsive" />
             </div>
             <h2 className="text-xl font-medium title-font text-gray-900 mt-5">{trimedTitle}</h2>
             <p className="text-base leading-relaxed mt-2">{trimedItemCaption}</p>
