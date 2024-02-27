@@ -17,21 +17,22 @@ const Header = async () => {
                 <div className="flex items-center gap-1">
                     <Link
                         href="/"
-                        className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                    >
+                        className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                         ホーム
                     </Link>
                     <Link
                         href={user ? "/profile" : "/api/auth/signin"}
-                        className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                    >
+                        className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                         {user ? "プロフィール" : "ログイン"}
                     </Link>
 
                     {user
-                        ? <Link href={"/api/auth/signout"}>
-                            ログアウト
-                        </Link>
+                        ?
+                        <>
+                            <Link href={"/api/auth/signout"}>
+                                ログアウト
+                            </Link>
+                        </>
                         : ""
                     }
                 </div>
