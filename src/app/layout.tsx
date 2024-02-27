@@ -1,7 +1,9 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Header from "./components/layout/Header";
 import { NextAuthProvider } from "./lib/next-auth/provider";
+import LoadingSpinner from "./components/loading/LoadingSpinner";
 
 import "./globals.css";
 
@@ -22,7 +24,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <NextAuthProvider>
           <Header />
-          {children}
+          <Suspense fallback={<LoadingSpinner />}>
+            {children}
+          </Suspense>
         </NextAuthProvider>
       </body>
     </html>

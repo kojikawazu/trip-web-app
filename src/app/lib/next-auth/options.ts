@@ -9,7 +9,7 @@ import prisma from "../prisma/prisma";
  * NextAuth.js(オプション)
  */
 export const nextAuthOptions: NextAuthOptions = {
-    debug: true,
+    debug: false,
     providers: [
         GitHubProvider({
             clientId: process.env.GITHUB_ID!,
